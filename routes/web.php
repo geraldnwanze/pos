@@ -24,6 +24,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::as('dashboard.')->group(function () {
         Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
             Route::get('/', [AdminController::class, 'index'])->name('index');
+
+            Route::group(['prefix' => 'users', 'as' => 'users.'], function () {
+                Route::get('/', [AdminController::class, 'users'])->name('index');
+                Route::get('create', [AdminController::class, 'createUser'])->name('create');
+                Route::post('store', [AdminController::class, 'storeUser'])->name('store');
+                Route::patch('status/toggle/{user}', [AdminController::class, 'toggleUserStatus'])->name('toggle-status');
+            });
         });
         Route::group(['prefix' => 'owner', 'as' => 'owner.'], function () {
             Route::get('/', [OwnerController::class, 'index'])->name('index');
@@ -31,6 +38,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::group(['prefix' => 'staff', 'as' => 'staff'], function () {
             Route::get('/', [StaffController::class, 'index'])->name('index');
         });
+
+        Route::post('logout', [AuthController::class, 'logout'])->name('logout');
     });
 });
 

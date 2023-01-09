@@ -18,9 +18,9 @@ return new class extends Migration
             $table->enum('role', ['admin', 'owner', 'staff'])->default('staff');
             $table->string('name');
             $table->string('phone');
-            $table->string('email')->unique();
-            $table->string('username')->index();
-            $table->string('password');
+            $table->string('email')->unique()->nullable();
+            $table->string('username')->unique()->index();
+            $table->string('password')->default(bcrypt("123456"));
             $table->boolean('active')->default(true);
             $table->timestamps();
         });

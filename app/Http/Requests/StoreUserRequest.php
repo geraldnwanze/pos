@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\RoleEnum;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreUserRequest extends FormRequest
@@ -13,7 +14,7 @@ class StoreUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return auth()->user()->role === RoleEnum::ADMIN ? true : false;
     }
 
     /**
@@ -24,7 +25,11 @@ class StoreUserRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            "role" => "required|in:admin,owner,staff",
+            "name" => "required|max:255",
+            "email" => "sometimes|nullable|unique:users",
+            "phone" => "required|numeric|digits:11",
+            "username" => "required|unique:users"
         ];
     }
 }

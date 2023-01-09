@@ -7,16 +7,4 @@
     <button>login</button>
 </form>
 
-@error('error')
-    <div class="alert alert-danger">{{ $message }}</div>
-@enderror
-
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+<x-alert />
