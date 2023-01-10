@@ -34,6 +34,14 @@ Route::group(['middleware' => 'auth'], function () {
                 Route::patch('{user}/update', [AdminController::class, 'updateUser'])->name('update');
                 Route::patch('password/{user}/reset', [AdminController::class, 'resetUserPassword'])->name('reset-password');
             });
+
+            Route::group(['prefix' => 'products', 'as' => 'products.'], function () {
+                Route::get('/', [AdminController::class, 'products'])->name('index');
+                Route::get('create', [AdminController::class, 'createProduct'])->name('create');
+                Route::post('store', [AdminController::class, 'storeProduct'])->name('store');
+                Route::get('{product}/edit', [AdminController::class, 'editProduct'])->name('edit');
+                Route::patch('{product}/update', [AdminController::class, 'updateProduct'])->name('update');
+            });
         });
         Route::group(['prefix' => 'owner', 'as' => 'owner.'], function () {
             Route::get('/', [OwnerController::class, 'index'])->name('index');

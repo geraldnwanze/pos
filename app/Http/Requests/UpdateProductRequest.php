@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\RoleEnum;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateProductRequest extends FormRequest
@@ -13,7 +14,7 @@ class UpdateProductRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return auth()->user()->role === RoleEnum::ADMIN || auth()->user()->role === RoleEnum::OWNER ? true : false;
     }
 
     /**
@@ -24,7 +25,10 @@ class UpdateProductRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'barcode' => 'sometimes|nullable|unique:products|max:255',
+            'name' => 'required|max:255',
+            'quantity' => 'required|numeric',
+            'price' => 'required|numeric'
         ];
     }
 }

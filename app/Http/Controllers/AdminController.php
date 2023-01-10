@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Enums\PasswordEnum;
 use App\Enums\RoleEnum;
+use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateProductRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -66,5 +69,37 @@ class AdminController extends Controller
             return back()->withErrors(['error' => 'something went wrong']);
         }
         return back()->with('message', 'password reset');
+    }
+
+    public function products() : View
+    {
+        $products = Product::paginate(10);
+        return view('dashboard.admin.products.index', compact('products'));
+    }
+
+    public function createProduct() : View
+    {
+        return view('dashboard.admin.products.create');
+    }
+
+    public function storeProduct(StoreProductRequest $request) : RedirectResponse
+    {
+        if (!Product::create($request->validated())) {
+            return back()->withErrors(['error' => 'something went wrong']);
+        }
+        return redirect()->route('dashboard.admin.products.index')->with('message', 'new product added');
+    }
+
+    public function editProduct(Product $product) : View
+    {
+        return view('dashboard.admin.products.edit', compact('product'));
+    }
+
+    public function updateProduct(Product $product, UpdateProductRequest $request) : RedirectResponse
+    {
+        if (!$product->update($request->validated())) {
+            return back()->withErrors(['error' => 'something went wrong']);
+        }
+        return redirect()->route('dashboard.admin.products.index')->with('message', 'product updated');
     }
 }
