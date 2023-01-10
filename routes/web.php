@@ -30,6 +30,9 @@ Route::group(['middleware' => 'auth'], function () {
                 Route::get('create', [AdminController::class, 'createUser'])->name('create');
                 Route::post('store', [AdminController::class, 'storeUser'])->name('store');
                 Route::patch('status/toggle/{user}', [AdminController::class, 'toggleUserStatus'])->name('toggle-status');
+                Route::get('{user}/edit', [AdminController::class, 'editUser'])->name('edit');
+                Route::patch('{user}/update', [AdminController::class, 'updateUser'])->name('update');
+                Route::patch('password/{user}/reset', [AdminController::class, 'resetUserPassword'])->name('reset-password');
             });
         });
         Route::group(['prefix' => 'owner', 'as' => 'owner.'], function () {

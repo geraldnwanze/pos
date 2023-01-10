@@ -24,8 +24,15 @@
                 <td>{{ $owner->active ? 'active' : 'inactive' }}</td>
                 <td>
                     <button form="toggle-user-status-{{ $owner->id }}">{{ $owner->active ? 'deactivate' : 'activate' }}</button>
+                    <a href="{{ route('dashboard.admin.users.edit', $owner->id) }}">edit</a>
+                    <button form="reset-password-{{ $owner->id }}">reset password</button>
                 </td>
                 <form action="{{ $owner->active ? route('dashboard.admin.users.toggle-status', $owner->id) : route('dashboard.admin.users.toggle-status', $owner->id) }}" method="post" id="toggle-user-status-{{ $owner->id }}">
+                @csrf
+                @method('PATCH')
+                </form>
+
+                <form action="{{ route('dashboard.admin.users.reset-password', $owner->id) }}" method="post" id="reset-password-{{ $owner->id }}">
                 @csrf
                 @method('PATCH')
                 </form>
@@ -60,8 +67,15 @@
                 <td>{{ $staff->active ? 'active' : 'inactive'}}</td>
                 <td>
                     <button form="toggle-user-status-{{ $staff->id }}">{{ $staff->active ? 'deactivate' : 'activate' }}</button>
+                    <a href="{{ route('dashboard.admin.users.edit', $staff->id) }}">edit</a>
+                    <button form="reset-password-{{ $staff->id }}">reset password</button>
                 </td>
                 <form action="{{ $staff->active ? route('dashboard.admin.users.toggle-status', $staff->id) : route('dashboard.admin.users.toggle-status', $staff->id) }}" method="post" id="toggle-user-status-{{ $staff->id }}">
+                @csrf
+                @method('PATCH')
+                </form>
+
+                <form action="{{ route('dashboard.admin.users.reset-password', $staff->id) }}" method="post" id="reset-password-{{ $staff->id }}">
                 @csrf
                 @method('PATCH')
                 </form>
@@ -73,3 +87,5 @@
         @endforelse
     </tbody>
 </table>
+
+<x-alert />
