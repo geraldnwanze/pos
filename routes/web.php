@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\StaffController;
 use Illuminate\Support\Facades\Route;
@@ -42,12 +43,17 @@ Route::group(['middleware' => 'auth'], function () {
                 Route::get('{product}/edit', [AdminController::class, 'editProduct'])->name('edit');
                 Route::patch('{product}/update', [AdminController::class, 'updateProduct'])->name('update');
             });
+
         });
         Route::group(['prefix' => 'owner', 'as' => 'owner.'], function () {
             Route::get('/', [OwnerController::class, 'index'])->name('index');
         });
         Route::group(['prefix' => 'staff', 'as' => 'staff'], function () {
             Route::get('/', [StaffController::class, 'index'])->name('index');
+        });
+
+        Route::group(['prefix' => 'cart', 'as' => 'cart.'], function () {
+            Route::get('/', [CartController::class, 'index'])->name('index');
         });
 
         Route::post('logout', [AuthController::class, 'logout'])->name('logout');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCartRequest;
 use App\Http\Requests\UpdateCartRequest;
 use App\Models\Cart;
+use App\Models\Product;
 
 class CartController extends Controller
 {
@@ -15,7 +16,8 @@ class CartController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::all();
+        return view('dashboard.cart.index', compact('products'));
     }
 
     /**
