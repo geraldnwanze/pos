@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Request;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        view()->share('page', 'Products');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +20,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::paginate(10);
+        return view('dashboard.products.index', compact('products'));
     }
 
     /**
@@ -26,7 +31,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.products.create');
     }
 
     /**
@@ -37,7 +42,10 @@ class ProductController extends Controller
      */
     public function store(StoreProductRequest $request)
     {
-        //
+        if (!Product::create($request->validated())) {
+            return back()->with('error', 'something went wrong');
+        }
+        return redirect()->route('dashboard.products.index')->with('success', 'new product added');
     }
 
     /**
@@ -59,7 +67,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        return view('dashboard.products.edit', compact('product'));
     }
 
     /**
@@ -71,7 +79,10 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        //
+        if (!$product->update($request->validated())) {
+            return back()->withErrors(['error' => 'something went wrong']);
+        }
+        return redirect()->route('dashboard.products.index')->with('message', 'product updated');
     }
 
     /**

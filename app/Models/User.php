@@ -26,12 +26,12 @@ class User extends Authenticatable
         $this->attributes['password'] = bcrypt($password);
     }
 
-    public function ScopeStaffs($query)
+    public function scopeStaffs($query)
     {
         return $query->where('role', 'staff');
     }
 
-    public function ScopeOwners($query)
+    public function scopeOwners($query)
     {
         return $query->where('role', 'owner');
     }

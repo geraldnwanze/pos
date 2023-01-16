@@ -13,13 +13,13 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $user = auth()->user();
             if ($user->active) {
-                return redirect()->route('dashboard.'.$user->role.'.index');
+                return redirect()->route('dashboard.'.$user->role.'.index')->with('success', 'Login Successful');
             }
             auth()->logout();
             session()->regenerate();
             return redirect()->route('index')->withErrors(['error' => 'Account is not active, please contact administrator']);
         }
-        return back()->withErrors(['error' => 'Invalid Credentials']);
+        return back()->with('error', 'Invalid Credentials');
     }
 
     public function logout()

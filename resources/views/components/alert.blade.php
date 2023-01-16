@@ -1,16 +1,30 @@
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(() => {
+        // success message popup notification
+    @if(Session::has('success'))
+        toastr.success("{{ Session::get('success') }}");
+    @endif
 
-@if (session('message'))
-    <div class="alert alert-success">
-        {{ session('message') }}
-    </div>
-@endif
+    // info message popup notification
+    @if(Session::has('info'))
+        toastr.info("{{ Session::get('info') }}");
+    @endif
 
+    // warning message popup notification
+    @if(Session::has('warning'))
+        toastr.warning("{{ Session::get('warning') }}");
+    @endif
+
+    // error message popup notification
+    @if(Session::has('error'))
+        toastr.error("{{ Session::get('error') }}");
+    @endif
+
+    @if($errors->any())
+        @foreach($errors->all() as $error)
+            toastr.error("{!! $error !!}")
+        @endforeach
+    @endif 
+})
+</script>

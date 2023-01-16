@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OwnerController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StaffController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,14 +37,6 @@ Route::group(['middleware' => 'auth'], function () {
                 Route::patch('password/{user}/reset', [AdminController::class, 'resetUserPassword'])->name('reset-password');
             });
 
-            Route::group(['prefix' => 'products', 'as' => 'products.'], function () {
-                Route::get('/', [AdminController::class, 'products'])->name('index');
-                Route::get('create', [AdminController::class, 'createProduct'])->name('create');
-                Route::post('store', [AdminController::class, 'storeProduct'])->name('store');
-                Route::get('{product}/edit', [AdminController::class, 'editProduct'])->name('edit');
-                Route::patch('{product}/update', [AdminController::class, 'updateProduct'])->name('update');
-            });
-
         });
         Route::group(['prefix' => 'owner', 'as' => 'owner.'], function () {
             Route::get('/', [OwnerController::class, 'index'])->name('index');
@@ -55,6 +48,15 @@ Route::group(['middleware' => 'auth'], function () {
         Route::group(['prefix' => 'cart', 'as' => 'cart.'], function () {
             Route::get('/', [CartController::class, 'index'])->name('index');
         });
+
+        // Route::group(['prefix' => 'products', 'as' => 'products.'], function () {
+            // Route::get('/', [Produc::class, 'products'])->name('index');
+            // Route::get('create', [Produc::class, 'createProduct'])->name('create');
+            // Route::post('store', [Produc::class, 'storeProduct'])->name('store');
+            // Route::get('{product}/edit', [Produc::class, 'editProduct'])->name('edit');
+            // Route::patch('{product}/update', [Produc::class, 'updateProduct'])->name('update');
+            Route::resource('products', ProductController::class);
+        // });
 
         Route::post('logout', [AuthController::class, 'logout'])->name('logout');
     });
