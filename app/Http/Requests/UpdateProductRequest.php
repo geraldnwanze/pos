@@ -25,7 +25,7 @@ class UpdateProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'barcode' => 'sometimes|nullable|unique:products|max:255',
+            'barcode' => 'sometimes|nullable|max:255',
             'name' => 'required|max:255',
             'quantity' => 'required|numeric',
             'price' => 'required|numeric'

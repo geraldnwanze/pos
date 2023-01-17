@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request as Request;
 
 class ProductController extends Controller
 {
+
     public function __construct()
     {
         view()->share('page', 'Products');
@@ -20,7 +21,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::paginate(10);
+        $products = Product::orderBy('name', 'asc')->paginate(10);
         return view('dashboard.products.index', compact('products'));
     }
 
@@ -80,9 +81,9 @@ class ProductController extends Controller
     public function update(UpdateProductRequest $request, Product $product)
     {
         if (!$product->update($request->validated())) {
-            return back()->withErrors(['error' => 'something went wrong']);
+            return back()->with('error', 'something went wrong');
         }
-        return redirect()->route('dashboard.products.index')->with('message', 'product updated');
+        return redirect()->route('dashboard.products.index')->with('success', 'product updated');
     }
 
     /**
@@ -91,9 +92,15 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy(Request $request, Product $product)
     {
-        //
+        if (!$product->delete()) {
+            return back()->with('error', 'something went wrong');
+        }
+
+        $paginator = Product::paginate(10, columns: ['id']);
+        $redirectToPage = ($request->page <= $paginator->lastPage()) ? $request->page : $paginator->lastPage();
+        return redirect()->route('dashboard.products.index', ['page' => $redirectToPage])->with('success', 'product deleted');
     }
 
     public function search(Request $request)

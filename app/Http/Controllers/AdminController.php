@@ -22,57 +22,6 @@ class AdminController extends Controller
         $owners = User::owners()->count();
         $staffs = User::staffs()->count();
         $recent_sales = [];
-        return view('dashboard.admin.index', compact('products', 'owners', 'staffs', 'recent_sales'));
-    }
-
-    public function users() : View
-    {
-        $staffs = User::staffs()->get();
-        $owners = User::owners()->get();
-        return view('dashboard.admin.users.index', compact('staffs', 'owners'));
-    }
-
-    public function createUser() : View
-    {
-        $roles = RoleEnum::list();
-        return view('dashboard.admin.users.create', compact('roles'));
-    }
-
-    public function storeUser(StoreUserRequest $request) : RedirectResponse
-    {
-        if (!User::create($request->validated())) {
-        return back()->withErrors(['error' => 'something went wrong']);
-        }
-        return redirect()->route('dashboard.admin.users.index')->with('message', "new $request->role added");
-    }
-
-    public function toggleUserStatus(User $user) : RedirectResponse
-    {
-        if (!$user->update(['active' => !$user->active])) {
-            return back()->withErrors(['error' => 'something went wrong']);
-        }
-        return back()->with('message', 'status updated');
-    }
-
-    public function editUser(User $user) : View
-    {
-        $roles = RoleEnum::list();
-        return view('dashboard.admin.users.edit', compact('user', 'roles'));
-    }
-
-    public function updateUser(User $user, UpdateUserRequest $request) : RedirectResponse
-    {
-        if (!$user->update($request->validated())) {
-            return redirect()->route('dashboard.admin.users.index')->withErrors(['error' => 'something went wrong']);
-        }
-        return redirect()->route('dashboard.admin.users.index')->with('message', 'user updated');
-    }
-
-    public function resetUserPassword(User $user) : RedirectResponse
-    {
-        if (!$user->update(['password' => PasswordEnum::DEFAULT])) {
-            return back()->withErrors(['error' => 'something went wrong']);
-        }
-        return back()->with('message', 'password reset');
+        return view('dashboard.index', compact('products', 'owners', 'staffs', 'recent_sales'));
     }
 }

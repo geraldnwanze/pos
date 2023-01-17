@@ -6,13 +6,14 @@ namespace App\Models;
 
 use App\Models\Scopes\UserScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -34,6 +35,11 @@ class User extends Authenticatable
     public function scopeOwners($query)
     {
         return $query->where('role', 'owner');
+    }
+
+    public function scopeList($query)
+    {
+        return $query->where('role', '!=', 'admin')->where('role', '!=', 'owner');
     }
 
 }

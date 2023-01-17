@@ -5,9 +5,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <meta name="description" content="Convex admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
-    <meta name="keywords" content="admin template, Convex admin template, dashboard template, flat admin template, responsive admin template, web app">
-    <meta name="author" content="PIXINVENT">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
     <title>{{ strtoupper(auth()->user()->role) }} Dashboard - {{ config('app.name') }}</title>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-touch-fullscreen" content="yes">
@@ -23,6 +23,9 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('toastr.min.css') }}">
     <style>
       th{
+        text-transform: capitalize;
+      }
+      td{
         text-transform: capitalize;
       }
     </style>
@@ -53,10 +56,11 @@
               <li class="nav-item"><a href="#"><i class="fa fa-book"></i><span data-i18n="" class="menu-title">Sales Record</span></a>
                 
               </li>
-              <li class="nav-item"><a href="#"><i class="icon-user"></i><span data-i18n="" class="menu-title">Profile</span></a>
+              <li class="nav-item"><a href="{{ route('dashboard.profile') }}"><i class="icon-user"></i><span data-i18n="" class="menu-title">Profile</span></a>
               </li>
               <li class="nav-item"><a href="#"><i class="ft-settings"></i><span data-i18n="" class="menu-title">Settings</span></a>
-                
+              </li>
+              <li class="nav-item"><a href="{{ route('dashboard.users.index') }}"><i class="ft-users"></i><span data-i18n="" class="menu-title">Users</span></a>
               </li>
               <li class=" nav-item"><a href="#" onclick="$('#logout').submit()"><i class="icon-logout"></i><span data-i18n="" class="menu-title">Logout</span></a>
               </li>

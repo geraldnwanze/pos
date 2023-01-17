@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('password')->default(bcrypt("123456"));
             $table->boolean('active')->default(true);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

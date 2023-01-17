@@ -6,6 +6,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,17 +27,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::as('dashboard.')->group(function () {
         Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
             Route::get('/', [AdminController::class, 'index'])->name('index');
-
-            Route::group(['prefix' => 'users', 'as' => 'users.'], function () {
-                Route::get('/', [AdminController::class, 'users'])->name('index');
-                Route::get('create', [AdminController::class, 'createUser'])->name('create');
-                Route::post('store', [AdminController::class, 'storeUser'])->name('store');
-                Route::patch('status/toggle/{user}', [AdminController::class, 'toggleUserStatus'])->name('toggle-status');
-                Route::get('{user}/edit', [AdminController::class, 'editUser'])->name('edit');
-                Route::patch('{user}/update', [AdminController::class, 'updateUser'])->name('update');
-                Route::patch('password/{user}/reset', [AdminController::class, 'resetUserPassword'])->name('reset-password');
-            });
-
         });
         Route::group(['prefix' => 'owner', 'as' => 'owner.'], function () {
             Route::get('/', [OwnerController::class, 'index'])->name('index');
@@ -49,15 +39,19 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/', [CartController::class, 'index'])->name('index');
         });
 
-        // Route::group(['prefix' => 'products', 'as' => 'products.'], function () {
-            // Route::get('/', [Produc::class, 'products'])->name('index');
-            // Route::get('create', [Produc::class, 'createProduct'])->name('create');
-            // Route::post('store', [Produc::class, 'storeProduct'])->name('store');
-            // Route::get('{product}/edit', [Produc::class, 'editProduct'])->name('edit');
-            // Route::patch('{product}/update', [Produc::class, 'updateProduct'])->name('update');
-            Route::resource('products', ProductController::class);
-        // });
+        Route::group(['prefix' => 'users', 'as' => 'users.'], function () {
+            Route::get('/', [UserController::class, 'index'])->name('index');
+            Route::get('create', [UserController::class, 'create'])->name('create');
+            Route::post('store', [UserController::class, 'store'])->name('store');
+            Route::patch('status/toggle/{user}', [UserController::class, 'toggleStatus'])->name('toggle-status');
+            Route::get('{user}/edit', [UserController::class, 'edit'])->name('edit');
+            Route::patch('{user}/update', [UserController::class, 'update'])->name('update');
+            Route::patch('password/{user}/reset', [UserController::class, 'resetPassword'])->name('reset-password');
+            Route::delete('{user}/delete', [UserController::class, 'destroy'])->name('delete');
+        });
 
+        Route::resource('products', ProductController::class);
+        Route::get('profile', [UserController::class, 'profile'])->name('profile');
         Route::post('logout', [AuthController::class, 'logout'])->name('logout');
     });
 });

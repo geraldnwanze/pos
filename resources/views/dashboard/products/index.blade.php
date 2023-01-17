@@ -7,6 +7,7 @@
             <div class="card-header">
                 <div class="card-title-wrap bar-success">
                     <h4 class="card-title">{{ $page }}</h4>
+                    <a href="{{ route('dashboard.products.create') }}" class="btn btn-primary pull-right">create product</a>
                 </div>
             </div>
             <div class="card-body">
@@ -25,15 +26,20 @@
                         <tbody>
                             @forelse ($products as $product)
                                 <tr>
-                                    <td>{{ $products->firstItem() }}</td>
+                                    <td>{{ $products->firstItem() + $loop->index }}</td>
                                     <td>{{ $product->barcode }}</td>
                                     <td>{{ $product->name }}</td>
                                     <td> <label class="btn {{ $product->quantity < 10 ? 'btn-outline-danger' : ($product->quantity < 20 ? 'btn-outline-warning' : 'btn-outline-success') }} btn-round btn-sm">{{ $product->quantity === 0 ? 'out of stock' : $product->quantity }}</label> </td>
                                     <td>{{ number_format($product->price, 2) }}</td>
                                     <td>
-                                        <button class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></button>
-                                        <button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+                                        <a href="{{ route('dashboard.products.edit', $product->id) }}" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a>
+                                        <button class="btn btn-sm btn-danger" form="delete-product-{{ $product->id }}"><i class="fa fa-trash"></i></button>
                                     </td>
+                                    <form action="{{ route('dashboard.products.destroy', $product->id) }}" method="post" id="delete-product-{{ $product->id }}">
+                                    <input type="hidden" name="page" value="{{ $products->currentPage() }}">
+                                        @csrf
+                                    @method('DELETE')
+                                    </form>
                                 </tr>
                             @empty
                                 <tr>
