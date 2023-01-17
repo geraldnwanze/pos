@@ -49,11 +49,11 @@
                   <span data-i18n="" class="menu-title">Dashboard</span>
                 </a>
               </li>
-              <li class="nav-item"><a href="#"><i class="ft-shopping-cart"></i><span data-i18n="" class="menu-title">Make a sale</span></a>
+              <li class="nav-item"><a href="{{ route('dashboard.cart.create') }}"><i class="ft-shopping-cart"></i><span data-i18n="" class="menu-title">Make a sale</span></a>
               </li>
               <li class="nav-item"><a href="{{ route('dashboard.products.index') }}"><i class="icon-screen-desktop"></i><span data-i18n="" class="menu-title">Products</span></a>
               </li>
-              <li class="nav-item"><a href="#"><i class="fa fa-book"></i><span data-i18n="" class="menu-title">Sales Record</span></a>
+              <li class="nav-item"><a href="{{ route('dashboard.sales.index') }}"><i class="fa fa-book"></i><span data-i18n="" class="menu-title">Sales Record</span></a>
                 
               </li>
               <li class="nav-item"><a href="{{ route('dashboard.profile') }}"><i class="icon-user"></i><span data-i18n="" class="menu-title">Profile</span></a>

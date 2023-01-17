@@ -16,8 +16,8 @@ class CartController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
-        return view('dashboard.cart.index', compact('products'));
+        $carts = Cart::all();
+        return view('dashboard.cart.index', compact('carts'));
     }
 
     /**
@@ -27,7 +27,9 @@ class CartController extends Controller
      */
     public function create()
     {
-        //
+        $carts = Cart::all();
+        $products = Product::all();
+        return view('dashboard.cart.create', compact('products', 'carts'));
     }
 
     /**

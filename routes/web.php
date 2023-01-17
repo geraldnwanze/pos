@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SaleController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -51,6 +52,7 @@ Route::group(['middleware' => 'auth'], function () {
         });
 
         Route::resource('cart', CartController::class);
+        Route::resource('sales', SaleController::class);
 
         Route::get('settings', [UserController::class, 'settings'])->name('settings');
         Route::patch('update/{user}/password', [UserController::class, 'updatePassword'])->name('update-password');
