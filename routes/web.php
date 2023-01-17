@@ -50,8 +50,15 @@ Route::group(['middleware' => 'auth'], function () {
             Route::delete('{user}/delete', [UserController::class, 'destroy'])->name('delete');
         });
 
+        Route::resource('cart', CartController::class);
+
+        Route::get('settings', [UserController::class, 'settings'])->name('settings');
+        Route::patch('update/{user}/password', [UserController::class, 'updatePassword'])->name('update-password');
+
         Route::resource('products', ProductController::class);
+
         Route::get('profile', [UserController::class, 'profile'])->name('profile');
+
         Route::post('logout', [AuthController::class, 'logout'])->name('logout');
     });
 });

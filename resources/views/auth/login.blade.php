@@ -42,13 +42,13 @@
                                 @csrf
                                 <div class="form-group">
                                     <div class="col-md-12">
-                                        <input type="text" class="form-control form-control-lg" name="username" id="inputUsername" placeholder="username" value="{{ old('username') }}" required>
+                                        <input type="text" class="form-control form-control-lg" name="username" placeholder="username" value="{{ old('username') }}" required>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <div class="col-md-12">
-                                        <input type="password" class="form-control form-control-lg" name="password" id="inputPass" placeholder="Password" required>
+                                        <input type="password" class="form-control form-control-lg" name="password" placeholder="Password" required>
                                     </div>
                                 </div>
 

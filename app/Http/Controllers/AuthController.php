@@ -17,7 +17,7 @@ class AuthController extends Controller
             }
             auth()->logout();
             session()->regenerate();
-            return redirect()->route('index')->withErrors(['error' => 'Account is not active, please contact administrator']);
+            return redirect()->route('index')->with('error', 'Account is not active, please contact administrator');
         }
         return back()->with('error', 'Invalid Credentials');
     }

@@ -79,4 +79,25 @@ class UserController extends Controller
     {
         return view('dashboard.profile');
     }
+
+    public function settings()
+    {
+        return view('dashboard.settings');
+    }
+
+    public function updatePassword(Request $request, User $user)
+    {
+        $request->validate([
+            'current_password' => 'required',
+            'password' => 'required|confirmed'
+        ]);
+
+        if (!password_verify($request->current_password, $user->password)) {
+            return back()->with('error', 'your current password is incorrect');
+        }
+        if (!$user->update(['password' => $request->password])) {
+            return back()->with('error', 'something went wrong');
+        }
+        return back()->with('success', 'password updated');
+    }
 }

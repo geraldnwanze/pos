@@ -44,7 +44,7 @@
           <div class="nav-container">
             <ul id="main-menu-navigation" data-menu="menu-navigation" class="navigation navigation-main">
               <li class="nav-item">
-                <a href="{{ route('dashboard.admin.index') }}">
+                <a href="{{ route('dashboard.'.auth()->user()->role.'.index') }}">
                   <i class="icon-home"></i>
                   <span data-i18n="" class="menu-title">Dashboard</span>
                 </a>
@@ -58,7 +58,7 @@
               </li>
               <li class="nav-item"><a href="{{ route('dashboard.profile') }}"><i class="icon-user"></i><span data-i18n="" class="menu-title">Profile</span></a>
               </li>
-              <li class="nav-item"><a href="#"><i class="ft-settings"></i><span data-i18n="" class="menu-title">Settings</span></a>
+              <li class="nav-item"><a href="{{ route('dashboard.settings') }}"><i class="ft-settings"></i><span data-i18n="" class="menu-title">Settings</span></a>
               </li>
               <li class="nav-item"><a href="{{ route('dashboard.users.index') }}"><i class="ft-users"></i><span data-i18n="" class="menu-title">Users</span></a>
               </li>
