@@ -21,7 +21,16 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::orderBy('name', 'asc')->paginate(10);
+        $query = request()->query('status');
+        if ($query === 'out-of-stock') {
+            $products = Product::where('quantity', 0)->orderBy('name', 'asc')->paginate(10);
+        } else if ($query === 'below-10') {
+            $products = Product::where('quantity', '<', '10')->where('quantity', '>', '0')->orderBy('name', 'asc')->paginate(10);
+        } else if ($query === 'below-20') {
+            $products = Product::where('quantity', '<', '20')->where('quantity', '>=', '10')->orderBy('name', 'asc')->paginate(10);
+        } else {
+            $products = Product::orderBy('name', 'asc')->paginate(10);
+        }
         return view('dashboard.products.index', compact('products'));
     }
 

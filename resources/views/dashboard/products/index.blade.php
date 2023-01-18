@@ -10,9 +10,10 @@
                     <a href="{{ route('dashboard.products.create') }}" class="btn btn-primary pull-right">create product</a>
                 </div>
                 <div class="px-3 pt-3">
-                    <a href="" class="btn btn-sm btn-danger">view out of stock products</a>
-                    <a href="" class="btn btn-sm btn-warning">view low quantity products</a>
-                    <a href="" class="btn btn-sm btn-danger">view products less than 10</a>
+                    <a href="{{ route('dashboard.products.index') }}" class="btn btn-sm btn-primary">view all products</a>
+                    <a href="{{ route('dashboard.products.index', ['status' => 'below-20']) }}" class="btn btn-sm btn-warning">view low quantity products</a>
+                    <a href="{{ route('dashboard.products.index', ['status' => 'below-10']) }}" class="btn btn-sm btn-danger">view products less than 10</a>
+                    <a href="{{ route('dashboard.products.index', ['status' => 'out-of-stock']) }}" class="btn btn-sm btn-danger">view out of stock products</a>
                     <form class="form" action="#">
                         
                         <div class="form-body">
@@ -71,7 +72,7 @@
                 </div>
             </div>
             <div class="card-footer">
-                {{ $products->links() }}
+                {{ $products->withQueryString()->links() }}
             </div>
         </div>
     </div>
