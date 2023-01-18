@@ -64,6 +64,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-title-wrap bar-success">
+                        <button>print</button>
                     </div>
                 </div>
                 <div class="card-body">
@@ -76,14 +77,12 @@
                                     <th>name</th>
                                     <th>quantity</th>
                                     <th>&#8358; price</th>
-                                    <th>action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse ($carts as $cart)
                                     <tr>
-                                        <td>{{ $carts->firstItem() + $loop->index }}</td>
-                                        
+                                        <td>1</td>
                                     </tr>
                                 @empty
                                     <tr>

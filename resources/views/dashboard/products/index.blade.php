@@ -9,7 +9,27 @@
                     <h4 class="card-title">{{ $page }}</h4>
                     <a href="{{ route('dashboard.products.create') }}" class="btn btn-primary pull-right">create product</a>
                 </div>
-            </div>
+                <div class="px-3 pt-3">
+                    <a href="" class="btn btn-sm btn-danger">view out of stock products</a>
+                    <a href="" class="btn btn-sm btn-warning">view low quantity products</a>
+                    <a href="" class="btn btn-sm btn-danger">view products less than 10</a>
+                    <form class="form" action="#">
+                        
+                        <div class="form-body">
+                            <h4 class="form-section">
+                                <i class="icon-screen-desktop"></i> Search For Product
+                            </h4>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="name">Type to search</label>
+                                        <input type="text" class="form-control" name="name" list="products">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             <div class="card-body">
                 <div class="card-block">
                     <table class="table">

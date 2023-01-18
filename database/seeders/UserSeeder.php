@@ -24,5 +24,7 @@ class UserSeeder extends Seeder
             'username' => 'admin',
             'password' => 123456
         ]);
+
+        User::factory(5)->create();
     }
 }

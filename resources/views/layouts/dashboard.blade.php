@@ -22,10 +22,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/app.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('toastr.min.css') }}">
     <style>
-      th{
-        text-transform: capitalize;
-      }
-      td{
+      th, td, a, button{
         text-transform: capitalize;
       }
     </style>

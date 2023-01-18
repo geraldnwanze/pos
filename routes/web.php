@@ -57,6 +57,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('settings', [UserController::class, 'settings'])->name('settings');
         Route::patch('update/{user}/password', [UserController::class, 'updatePassword'])->name('update-password');
 
+        Route::get('products/less-than-10', [ProductController::class, 'lessThanTen'])->name('products-less-than-10');
+        Route::get('products/low', [ProductController::class, 'low'])->name('products-low');
+        Route::get('products/out-of-stock', [ProductController::class, 'outOfStock'])->name('products-out-of-stock');
         Route::resource('products', ProductController::class);
 
         Route::get('profile', [UserController::class, 'profile'])->name('profile');
