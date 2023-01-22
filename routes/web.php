@@ -57,6 +57,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('settings', [UserController::class, 'settings'])->name('settings');
         Route::patch('update/{user}/password', [UserController::class, 'updatePassword'])->name('update-password');
 
+        Route::get('products/search', [ProductController::class, 'search'])->name('search-product');
         Route::resource('products', ProductController::class);
 
         Route::get('profile', [UserController::class, 'profile'])->name('profile');

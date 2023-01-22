@@ -21,6 +21,11 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/app.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('toastr.min.css') }}">
     
+    <style>
+        #view-password:hover{
+            cursor: pointer;
+        }
+    </style>
     
   </head>
   <body data-col="1-column" class=" 1-column  blank-page blank-page">
@@ -46,9 +51,14 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <div class="col-md-12">
-                                        <input type="password" class="form-control form-control-lg" name="password" placeholder="Password" required>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <input type="password" class="form-control form-control-lg" name="password" id="password" placeholder="Password" required>
+                                            <div class="input-group-append" id="view-password">
+                                                <span class="input-group-text"><i class="fa fa-eye-slash"></i></span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -89,6 +99,23 @@
     <!-- END PAGE LEVEL JS-->
 
     <script src="{{ asset('toastr.min.js') }}"></script>
+
+    <script>
+        $('#view-password').click(() => {
+            let field = $('#password');
+            let icon = $('#view-password').children().children('i');
+            if (field.attr('type') === 'password') {
+                field.attr('type', 'text');
+                icon.removeClass('fa-eye-slash');
+                icon.addClass('fa-eye');
+            } else if (field.attr('type') === 'text') {
+                field.attr('type', 'password');
+                icon.removeClass('fa-eye');
+                icon.addClass('fa-eye-slash');
+            }
+        })
+    </script>
+
   </body>
 
 </html>

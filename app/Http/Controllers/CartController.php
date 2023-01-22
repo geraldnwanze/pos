@@ -6,6 +6,7 @@ use App\Http\Requests\StoreCartRequest;
 use App\Http\Requests\UpdateCartRequest;
 use App\Models\Cart;
 use App\Models\Product;
+use DateTime;
 
 class CartController extends Controller
 {
@@ -27,9 +28,10 @@ class CartController extends Controller
      */
     public function create()
     {
-        $carts = Cart::all();
+        $invoice = rand(111111,999999999);
         $products = Product::all();
-        return view('dashboard.cart.create', compact('products', 'carts'));
+        $carts = Cart::mine()->invoice($invoice)->with('product_name')->get();
+        return view('dashboard.cart.create', compact('invoice', 'carts', 'products'));
     }
 
     /**

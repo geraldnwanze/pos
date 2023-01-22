@@ -18,7 +18,9 @@ class CartFactory extends Factory
     {
         return [
             'product_id' => rand(1, 500),
-            'quantity' => rand(1, 20)
+            'quantity' => rand(1, 20),
+            'price' => rand(10, 1000000),
+            'created_by' => 1
         ];
     }
 }

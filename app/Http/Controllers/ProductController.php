@@ -6,6 +6,7 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Product;
 use Illuminate\Http\Request as Request;
+use Illuminate\Http\Response;
 
 class ProductController extends Controller
 {
@@ -114,6 +115,16 @@ class ProductController extends Controller
 
     public function search(Request $request)
     {
-        dd($request);
+        if ($request->ajax()) {
+            if ($request->has('column')) {
+                $products = Product::where($request->column, 'LIKE', $request->param.'%')->get();
+            } else {
+                $products = Product::where('name', 'LIKE', $request->search.'%')->get();
+            }
+            
+            if ($products) {
+                return Response($products);
+            }
+        }
     }
 }
